@@ -32,13 +32,13 @@ def extract_information(twitch_message):
 def get_song_information(command):
     band = command_arguments[0]
     song = command_arguments[1]
-    
+
     return command_arguments
 
 def commands(user, command, command_arguments=None):
     """
     commands recieved from chat
-    """ 
+    """
     if command == "!about":
         return_message = "Hey "+username+" I'm hannylicious!"
         twitch_api.chat(sock, return_message)
@@ -71,7 +71,7 @@ def commands(user, command, command_arguments=None):
             twitch_api.chat(sock, return_message)
         if command_arguments:
                 print(command_arguments)
-    
+
     if user in blacklist:
         return_message = "Hey "+username+", nice try - but you are not able to do this. Please forgive me. Or blame me, I don't care - I'm Nancy."
         twitch_api.chat(sock, return_message)
@@ -91,14 +91,9 @@ while __name__ == "__main__":
         prefix = os.environ.get("PYTWITCHIO_PREFIX")
         if "PRIVMSG" in twitch_message:
             username, channel, message = extract_information(twitch_message)
-        print(username+":"+message)
+        print(username + ":" + message)
         if message.startswith(prefix):
             command_string = message.rstrip()
             command_arguments = shlex.split(command_string)
             command = command_arguments.pop(0)
             commands(username, command, command_arguments)
-
-
-
-
-
